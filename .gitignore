@@ -1,0 +1,44 @@
+# 编译后的二进制文件
+scanner
+*.exe
+*.bin
+
+# Go模块依赖
+go.work
+go.work.sum
+
+# 临时文件
+*.tmp
+*.temp
+*.log
+*.out
+
+# 调试文件
+*.debug
+debug
+
+# IDE和编辑器文件
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# 操作系统文件
+.DS_Store
+Thumbs.db
+
+# Z3库（如果下载了）
+libz3*
+z3*
+
+# 报告输出目录（可选，排除生成的报告）
+reports/
+*.report
+*.sarif
+*.json
+*.txt
+
+# 测试文件（如果生成了）
+test_results/
+coverage.out
