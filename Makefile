@@ -41,6 +41,20 @@ test: build
 test-uaf: build
 	DYLD_LIBRARY_PATH=/opt/homebrew/anaconda3/lib ./bin/gosast -v test_vulnerable.c
 
+# 安装到 $GOPATH/bin 或 $GOBIN
+.PHONY: install
+install: build
+	@echo "Installing gosast..."
+	@install -d $(shell go env GOPATH)/bin 2>/dev/null || true
+	@install -d $(shell go env GOBIN) 2>/dev/null || true
+	@if [ -n "$(shell go env GOBIN)" ]; then \
+		install bin/gosast $(shell go env GOBIN)/gosast; \
+		echo "Installed to $(shell go env GOBIN)/gosast"; \
+	else \
+		install bin/gosast $(shell go env GOPATH)/bin/gosast; \
+		echo "Installed to $(shell go env GOPATH)/bin/gosast"; \
+	fi
+
 # 清理
 .PHONY: clean
 clean:
@@ -63,6 +77,7 @@ help:
 	@echo "  build       - Build with Z3 CGO support (default)"
 	@echo "  build-z3    - Build with Z3 CGO support (same as build)"
 	@echo "  build-no-z3 - Build without Z3 (stub mode)"
+	@echo "  install     - Build and install gosast to $$GOPATH/bin or $$GOBIN"
 	@echo "  test        - Run integer overflow test"
 	@echo "  test-uaf    - Run UAF test"
 	@echo "  clean       - Remove build artifacts"
