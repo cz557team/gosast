@@ -49,12 +49,18 @@ while [[ $# -gt 0 ]]; do
             BUILD_TYPE="static"
             shift
             ;;
+        --linux)
+            TARGET_OS="linux"
+            TARGET_ARCH="amd64"
+            shift
+            ;;
         -h|--help)
             echo "Usage: $0 [options]"
             echo "  --debug         Debug build"
             echo "  --with-z3       Force enable Z3"
             echo "  --without-z3    Force disable Z3"
             echo "  --static        Static build (requires Z3 static library)"
+            echo "  --linux         Build for Linux amd64"
             echo "  --output FILE   Output file"
             echo "  --os OS         Target OS (linux, darwin, windows)"
             echo "  --arch ARCH     Target Arch (amd64, arm64)"
@@ -63,6 +69,12 @@ while [[ $# -gt 0 ]]; do
             echo "  CGO_CFLAGS      C compiler flags"
             echo "  CGO_LDFLAGS     Linker flags"
             echo "  Z3_ROOT         Z3 installation root"
+            echo ""
+            echo "Examples:"
+            echo "  $0                      # Build for macOS arm64 (default)"
+            echo "  $0 --linux              # Build for Linux amd64"
+            echo "  $0 --os linux --arch amd64   # Same as --linux"
+            echo "  $0 --os windows --arch amd64 # Build for Windows amd64"
             exit 0
             ;;
         *)
